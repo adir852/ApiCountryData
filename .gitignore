@@ -1,4 +1,9 @@
 HELP.md
+out/
+.mvn/
+mvnw
+mvnw.cmd
+datafilter.iml
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
