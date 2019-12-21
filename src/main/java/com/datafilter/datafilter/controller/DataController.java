@@ -40,20 +40,12 @@ public class DataController {
         return new ResponseEntity<ArrayList<?>>((ArrayList<?>) arrayList, HttpStatus.OK);
     }
 
-    public ResponseEntity<String> getLimitData(int limit) {
-        return restTemplate.getForEntity("https://data.gov.il/api/action/datastore_search?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab&limit=" + limit, String.class);
+    public ResponseEntity<ArrayList<?>> getLimitData(int limit) throws JsonProcessingException {
+        ResponseEntity<String> data = restTemplate.getForEntity("https://data.gov.il/api/action/datastore_search?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab&limit=" + limit, String.class);
+        HashMap<String, Object> result = new ObjectMapper().readValue(data.getBody(), HashMap.class);
+        LinkedHashMap<String, Object> res = (LinkedHashMap<String, Object>) result.get("result");
+        return new ResponseEntity<ArrayList<?>>((ArrayList<?>) res.get("records"), HttpStatus.OK);
     }
 
-
-    private ResponseEntity<?> fixJsonBody(ResponseEntity<?> response) {
-        String json = null;
-        if (response.getStatusCode() == HttpStatus.OK) {
-            json = (String) response.getBody();
-            json = json.replace("\"help\": \"https://data.gov.il/api/3/action/help_show?name=datastore_search\",", "");
-            return new ResponseEntity<String>(json, HttpStatus.OK);
-        } else {
-            return response;
-        }
-    }
 
 }

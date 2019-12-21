@@ -46,8 +46,8 @@ public class DataApi {
     @URI /api/1.0/data?limit=int
      */
     @GetMapping(value = "data", params = "limit")
-    public ResponseEntity<String> getLimitData(@RequestParam(value = "limit", required = true) int limit) {
+    public ResponseEntity<ArrayList<?>> getLimitData(@RequestParam(value = "limit", required = true) int limit) throws JsonProcessingException {
         return dataController.getLimitData(limit);
     }
-    
+
 }
