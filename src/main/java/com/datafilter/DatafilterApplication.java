@@ -1,4 +1,4 @@
-package com.datafilter.datafilter;
+package com.datafilter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

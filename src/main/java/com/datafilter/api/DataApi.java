@@ -1,7 +1,7 @@
-package com.datafilter.datafilter.api;
+package com.datafilter.api;
 
 
-import com.datafilter.datafilter.controller.DataController;
+import com.datafilter.controller.DataController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

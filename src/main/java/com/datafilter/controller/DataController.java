@@ -1,6 +1,5 @@
-package com.datafilter.datafilter.controller;
+package com.datafilter.controller;
 
-import com.datafilter.datafilter.api.DataApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 @Controller
 public class DataController {

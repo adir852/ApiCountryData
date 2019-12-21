@@ -1,4 +1,4 @@
-package com.datafilter.datafilter;
+package com.datafilter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
