@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 @RestController
 @RequestMapping("api/" + DataApi.VERSION_API)
@@ -54,6 +55,16 @@ public class DataApi {
     @GetMapping(value = "data", params = "limit")
     public ResponseEntity<ArrayList<?>> getLimitData(@RequestParam(value = "limit", required = true) int limit) throws JsonProcessingException {
         return dataController.getLimitData(limit);
+    }
+
+    @GetMapping(value = "data", params = "originNumber")
+    public ArrayList<LinkedHashMap> getDataByOriginNumber(@RequestParam(value = "originNumber", required = true) int originNumber) throws JsonProcessingException {
+        return dataController.getDataByOriginNumber(originNumber);
+    }
+
+    @GetMapping(value = "data", params = "lang")
+    public ArrayList<?> getDataByOriginNumber(@RequestParam(value = "lang", required = true) String lang) throws Exception {
+        return dataController.getDataByLang(lang);
     }
 
 }
