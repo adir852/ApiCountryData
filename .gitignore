@@ -2,6 +2,7 @@ HELP.md
 out/
 .mvn/
 mvnw
+.metadata
 mvnw.cmd
 datafilter.iml
 target/
