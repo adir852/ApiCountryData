@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("api/"+DataApi.VERSION_API)
+@RequestMapping("api/" + DataApi.VERSION_API)
 public class DataApi {
 
     public static final double VERSION_API = 1.0;
@@ -22,9 +22,10 @@ public class DataApi {
     DataController dataController;
 
     @GetMapping
-    public String getVersionApi(){
-      return "This api version is : " + VERSION_API;
+    public String getVersionApi() {
+        return "This api version is : " + VERSION_API;
     }
+
     /*
     This function return all country data
     @METHOD GET

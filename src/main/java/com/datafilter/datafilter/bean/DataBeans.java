@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class DataBeans {
 
     @Bean
-    public RestTemplate getRestTamplate(){
+    public RestTemplate getRestTamplate() {
         return new RestTemplate();
     }
 }
