@@ -38,9 +38,8 @@ public class DataController {
         } else {
             responseData = restTemplate.getForEntity(urlDataGov + "?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab&limit=" + totalData, String.class);
         }
-        HashMap<String, Object> result = new ObjectMapper().readValue(responseData.getBody(), HashMap.class);
-        HashMap<String, Object> res = (HashMap<String, Object>) result.get("result");
-        return new ResponseEntity<ArrayList<?>>((ArrayList<?>) res.get("records"), HttpStatus.OK);
+        HashMap<String, Object> result = (HashMap<String, Object>) new ObjectMapper().readValue(responseData.getBody(), HashMap.class).get("result");
+        return new ResponseEntity<ArrayList<?>>((ArrayList<?>) result.get("records"), HttpStatus.OK);
     }
 
 }
