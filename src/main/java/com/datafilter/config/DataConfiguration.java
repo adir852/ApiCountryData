@@ -1,4 +1,4 @@
-package com.datafilter.bean;
+package com.datafilter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
