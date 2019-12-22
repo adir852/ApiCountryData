@@ -3,12 +3,13 @@ package com.datafilter.utility;
 import com.datafilter.bean.DataBeanEng;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class UtilityStatic {
 
-    public static ArrayList<LinkedHashMap> getListByOriginNumber(ArrayList<LinkedHashMap> ListdataBeanHeb, int originNumber) {
-        ArrayList<LinkedHashMap> listFixByOriginNumber = new ArrayList<>();
+    public static ArrayList<HashMap> getListByOriginNumber(ArrayList<HashMap> ListdataBeanHeb, int originNumber) {
+        ArrayList<HashMap> listFixByOriginNumber = new ArrayList<>();
         for (int i = 0; i < ListdataBeanHeb.size(); i++) {
             int symboleOriginNumber = (int) ListdataBeanHeb.get(i).get("סמל_מועצה_איזורית");
             if (symboleOriginNumber == originNumber) {
@@ -18,7 +19,7 @@ public class UtilityStatic {
         return listFixByOriginNumber;
     }
 
-    public static ArrayList<DataBeanEng> convertListOfDataBeanFromHebToEng(ArrayList<LinkedHashMap> ListdataBeanHeb) {
+    public static ArrayList<DataBeanEng> convertListOfDataBeanFromHebToEng(ArrayList<HashMap> ListdataBeanHeb) {
         ArrayList<DataBeanEng> ListDataBeanEng = new ArrayList<>();
         for (int i = 0; i < ListdataBeanHeb.size(); i++) {
             DataBeanEng dataBeanEng = new DataBeanEng();

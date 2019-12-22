@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 public class DataController {
 
     public static ResponseEntity<ArrayList<?>> listOfCountryData = null;
+
     @Autowired
     RestTemplate restTemplate;
 
@@ -37,14 +38,14 @@ public class DataController {
         return getDataFromApi(limit);
     }
 
-    public ArrayList<LinkedHashMap> getDataByOriginNumber(int originNumber) throws JsonProcessingException {
-        return UtilityStatic.getListByOriginNumber((ArrayList<LinkedHashMap>) getDataFromApi(null).getBody(), originNumber);
+    public ArrayList<HashMap> getDataByOriginNumber(int originNumber) throws JsonProcessingException {
+        return UtilityStatic.getListByOriginNumber((ArrayList<HashMap>) getDataFromApi(null).getBody(), originNumber);
     }
 
 
     public ArrayList<DataBeanEng> getDataByLang(String lang) throws Exception {
         if (lang.equals("eng")) {
-            return UtilityStatic.convertListOfDataBeanFromHebToEng((ArrayList<LinkedHashMap>) getDataFromApi(null).getBody());
+            return UtilityStatic.convertListOfDataBeanFromHebToEng((ArrayList<HashMap>) getDataFromApi(null).getBody());
         } else {
             throw new Exception("The default language is hebrew can use only english lang=eng");
         }

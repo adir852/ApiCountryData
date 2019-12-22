@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("api/" + DataApi.VERSION_API)
@@ -33,13 +33,6 @@ public class DataApi {
     @Return ResponseEntity<String>
     @URI /api/1.0/data
      */
-    //For lerning see two way to set limit
-//          @RequestParam(value = "limit", required = false) int limit
-//        if (limit > 0) {
-//            return dataController.getLimitData(limit);
-//        } else {
-//            return dataController.getAllData();
-//        }
     @GetMapping(value = "data")
     public ResponseEntity<ArrayList<?>> getAllData() throws JsonProcessingException {
         return dataController.getAllData();
@@ -57,14 +50,27 @@ public class DataApi {
         return dataController.getLimitData(limit);
     }
 
+    /*
+    This function return country data with the selected origin number
+    @METHOD GET
+    @Param = originNumber(int)
+    @Return ArrayList<LinkedHashMap>
+    @URI /api/1.0/data?limit=int
+     */
     @GetMapping(value = "data", params = "originNumber")
-    public ArrayList<LinkedHashMap> getDataByOriginNumber(@RequestParam(value = "originNumber", required = true) int originNumber) throws JsonProcessingException {
+    public ArrayList<HashMap> getDataByOriginNumber(@RequestParam(value = "originNumber", required = true) int originNumber) throws JsonProcessingException {
         return dataController.getDataByOriginNumber(originNumber);
     }
 
+    /*
+    This function return country data with the selected origin number
+    @METHOD GET
+    @Param = lang (String)
+    @Return ArrayList<?>
+    @URI /api/1.0/data?limit=int
+     */
     @GetMapping(value = "data", params = "lang")
     public ArrayList<?> getDataByOriginNumber(@RequestParam(value = "lang", required = true) String lang) throws Exception {
         return dataController.getDataByLang(lang);
     }
-
 }

@@ -4,6 +4,7 @@ package com.datafilter.bean;
 import java.io.Serializable;
 
 public class DataBeanHeb implements Serializable {
+    
     public DataBeanHeb() {
     }
 
