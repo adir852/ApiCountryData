@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DatafilterApplication {
+public class DataFilterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DatafilterApplication.class, args);
+		SpringApplication.run(DataFilterApplication.class, args);
 	}
 	
 }
