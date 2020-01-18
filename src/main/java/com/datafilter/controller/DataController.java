@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 @Controller
 public class DataController {
@@ -22,13 +21,15 @@ public class DataController {
     @Autowired
     RestTemplate restTemplate;
 
-    private int totalData = 1272;
+    public static int totalData = 0;
     private final String urlDataGov = "https://data.gov.il/api/action/datastore_search";
 
-    public ResponseEntity<ArrayList<?>> getAllData() throws JsonProcessingException {
+    public ResponseEntity<ArrayList<?>> getAllDataCache() throws JsonProcessingException {
         if (listOfCountryData == null) {
             listOfCountryData = getDataFromApi(null);
             return listOfCountryData;
+        } else if (totalData != listOfCountryData.getBody().size()) {
+            return listOfCountryData = getDataFromApi(null);
         } else {
             return listOfCountryData;
         }
@@ -39,16 +40,54 @@ public class DataController {
     }
 
     public ArrayList<HashMap> getDataByOriginNumber(int originNumber) throws JsonProcessingException {
-        return UtilityStatic.getListByOriginNumber((ArrayList<HashMap>) getDataFromApi(null).getBody(), originNumber);
+        return UtilityStatic.getListByOriginNumber((ArrayList<HashMap>) getAllDataCache().getBody(), originNumber);
     }
 
 
     public ArrayList<DataBeanEng> getDataByLang(String lang) throws Exception {
         if (lang.equals("eng")) {
-            return UtilityStatic.convertListOfDataBeanFromHebToEng((ArrayList<HashMap>) getDataFromApi(null).getBody());
+            return UtilityStatic.convertListOfDataBeanFromHebToEng((ArrayList<HashMap>) getAllDataCache().getBody());
         } else {
             throw new Exception("The default language is hebrew can use only english lang=eng");
         }
+    }
+
+    public ArrayList<String> getDataByFilter(String filter) throws Exception {
+        switch (filter) {
+            case "id":
+            case "symbolOfTheMannaChamber":
+            case "regionalCouncilNumber":
+            case "table":
+            case "nameCity":
+            case "nameLocationEng":
+            case "regionalName":
+            case "iconSnap":
+            case "office":
+            case "symbolCity":
+                return UtilityStatic.getListByFilter((ArrayList<HashMap>) getAllDataCache().getBody(), filter);
+            default:
+                throw new Exception("Don't know this filter : " + filter + " filter must be one of this :     private Integer Id;" +
+                        "    private String Table;" +
+                        "    private Integer SymbolCity;" +
+                        "    private String NameCity;" +
+                        "    private String NameLocationEng;" +
+                        "    private Integer IconSnap;" +
+                        "    private String IconName;" +
+                        "    private Integer SymbolOfTheMannaChamber;" +
+                        "    private String Office;" +
+                        "    private Integer RegionalCouncilNumber;" +
+                        "    private String RegionalName;");
+        }
+    }
+
+    public Integer getDataTotalFromApi() throws JsonProcessingException {
+        ResponseEntity<String> responseData;
+        if (restTemplate == null) {
+            restTemplate = new RestTemplate();
+        }
+        responseData = restTemplate.getForEntity(urlDataGov + "?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab", String.class);
+        HashMap<String, Object> result = (HashMap<String, Object>) new ObjectMapper().readValue(responseData.getBody(), HashMap.class).get("result");
+        return (Integer) result.get("total");
     }
 
     private ResponseEntity<ArrayList<?>> getDataFromApi(Integer limit) throws JsonProcessingException {
@@ -61,4 +100,5 @@ public class DataController {
         HashMap<String, Object> result = (HashMap<String, Object>) new ObjectMapper().readValue(responseData.getBody(), HashMap.class).get("result");
         return new ResponseEntity<ArrayList<?>>((ArrayList<?>) result.get("records"), HttpStatus.OK);
     }
+
 }

@@ -22,6 +22,7 @@ public class DataApi {
     @Autowired
     DataController dataController;
 
+
     @GetMapping
     public String getVersionApi() {
         return "This api version is : " + VERSION_API;
@@ -35,7 +36,7 @@ public class DataApi {
      */
     @GetMapping(value = "data")
     public ResponseEntity<ArrayList<?>> getAllData() throws JsonProcessingException {
-        return dataController.getAllData();
+        return dataController.getAllDataCache();
     }
 
     /*
@@ -73,4 +74,17 @@ public class DataApi {
     public ArrayList<?> getDataByOriginNumber(@RequestParam(value = "lang", required = true) String lang) throws Exception {
         return dataController.getDataByLang(lang);
     }
+
+    /*
+    This function return data by filter row
+    @METHOD GET
+    @Param = filter (String)
+    @Return ArrayList<String>
+    @URI /api/1.0/data?filter=?row
+     */
+    @GetMapping(value = "data", params = "filter")
+    public ArrayList<?> getDataByFilter(@RequestParam(value = "filter", required = true) String filter) throws Exception {
+        return dataController.getDataByFilter(filter);
+    }
+
 }
